@@ -1,6 +1,7 @@
 package com.ssilvadev.med.voll.api.model;
 
 import com.ssilvadev.med.voll.api.dto.DoctorRegisterDataDTO;
+import com.ssilvadev.med.voll.api.dto.DoctorUpdateDataDTO;
 import com.ssilvadev.med.voll.api.enums.Specialty;
 import jakarta.persistence.*;
 
@@ -30,6 +31,8 @@ public class Doctor {
     @Embedded
     private Address address;
 
+    private Boolean status;
+
     public Doctor(DoctorRegisterDataDTO data){
         this.name = data.name();
         this.email = data.email();
@@ -37,5 +40,22 @@ public class Doctor {
         this.crm = data.crm();
         this.specialty = data.specialty();
         this.address = new Address(data.address());
+        this.status = true;
+    }
+
+    public void updateInfo(DoctorUpdateDataDTO data) {
+
+        if(data.name() != null) this.name = data.name();
+
+        if(data.phone() != null) this.phone = data.phone();
+
+        if(data.address() != null) {
+            this.address.updateAddress(data.address());
+        }
+
+    }
+
+    public void inactivate() {
+        this.status = false;
     }
 }
