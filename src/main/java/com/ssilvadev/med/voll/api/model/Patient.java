@@ -1,6 +1,7 @@
 package com.ssilvadev.med.voll.api.model;
 
 import com.ssilvadev.med.voll.api.dto.PatientRegisterDTO;
+import com.ssilvadev.med.voll.api.dto.UpdatePatientDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -32,5 +33,12 @@ public class Patient {
         this.phone = data.phone();
         this.cpf = data.cpf();
         this.address = new Address(data.address());
+    }
+
+    public void updateInfo(UpdatePatientDTO patient){
+        if(patient.name() != null) this.name = patient.name();
+        if(patient.phone() != null) this.phone = patient.phone();
+
+        if(patient.address() != null) this.address.updateAddress(patient.address());
     }
 }
