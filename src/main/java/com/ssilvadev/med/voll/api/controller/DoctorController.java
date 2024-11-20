@@ -3,7 +3,7 @@ package com.ssilvadev.med.voll.api.controller;
 import com.ssilvadev.med.voll.api.dto.*;
 import com.ssilvadev.med.voll.api.model.Doctor;
 import com.ssilvadev.med.voll.api.repository.DoctorRepository;
-import jakarta.persistence.EntityNotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("api/medicos")
+@SecurityRequirement(name = "bearer-key")
 public class DoctorController {
 
     @Autowired
