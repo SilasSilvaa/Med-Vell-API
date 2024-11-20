@@ -23,6 +23,7 @@ public class Patient {
     private String email;
     private String cpf;
     private String phone;
+    private boolean status;
 
     @Embedded
     private Address address;
@@ -33,6 +34,7 @@ public class Patient {
         this.phone = data.phone();
         this.cpf = data.cpf();
         this.address = new Address(data.address());
+        this.status = true;
     }
 
     public void updateInfo(UpdatePatientDTO patient){
@@ -40,5 +42,9 @@ public class Patient {
         if(patient.phone() != null) this.phone = patient.phone();
 
         if(patient.address() != null) this.address.updateAddress(patient.address());
+    }
+
+    public void inactivate() {
+        this.status = false;
     }
 }
