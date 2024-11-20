@@ -3,7 +3,6 @@ package com.ssilvadev.med.voll.api.infra.exception;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -47,6 +46,11 @@ public class ErrorHandler {
     public ResponseEntity errorHandler500(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " +ex.getLocalizedMessage());
     }
+
+    @ExceptionHandler(ValidateException.class)
+    public ResponseEntity errorHandlerBusinessRules(ValidateException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+                    }
 
     private record ErrorHandlerValidation(String field, String message){
 
